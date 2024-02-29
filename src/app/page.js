@@ -1,9 +1,11 @@
 'use client'
+
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, IconButton, CircularProgress, styled } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
 
 // Custom styled components for enhanced look
 const SimilarPromptsBox = styled(Box)({
@@ -72,9 +74,7 @@ export default function Home() {
 
   return (
     <Box sx={{ display: 'flex', height: '100vh', p: 2 }}>
-      {/* Left Container: Prompt Box + Similar Prompts */}
       <Box sx={{ width: '25%', display: 'flex', flexDirection: 'column', mb: 2 }}>
-        {/* Prompt Box */}
         <Typography variant="h6">Prompt</Typography>
         <TextField
           fullWidth
@@ -89,8 +89,6 @@ export default function Home() {
           <Button variant="contained" onClick={handleGenerate}>Generate</Button>
           <Button variant="outlined" onClick={handleClear}>Clear</Button>
         </Box>
-
-        {/* Similar Prompts */}
         <SimilarPromptsBox sx={{ mt: 2 }}>
           <Typography variant="h6" sx={{ marginBottom: '12px' }}>Similar Prompts</Typography>
           {similarPrompts.map((group, index) => (
@@ -104,10 +102,7 @@ export default function Home() {
           ))}
         </SimilarPromptsBox>
       </Box>
-
-      {/* Right Container: Response Box */}
       <Box sx={{ width: '75%', ml: 2, display: 'flex', flexDirection: 'column' }}>
-        {/* Header with "Response", count, and navigation buttons */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
           <Typography variant="h6">Response</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -116,28 +111,22 @@ export default function Home() {
             <IconButton onClick={() => navigateResponses('next')}><ArrowForwardIosIcon /></IconButton>
           </Box>
         </Box>
-
-        {/* Response content area */}
         <Box sx={{ overflowY: 'auto', maxHeight: 'calc(100vh - 150px)', height: '400px', border: '1px solid #ccc', borderRadius: '4px', padding: 2, mt: 1 }}>
-  {loading && (
-    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-      <CircularProgress />
-      <Typography variant="body1" sx={{ textAlign: 'center' }}>Response is being generated...</Typography>
-    </Box>
-  )}
-  {responses[currentIndex] && !loading && (
-    <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
-      {responses[currentIndex].response}
-    </Typography>
-  )}
-</Box>
-
-
-
-
-
-
-
+          {loading && (
+            <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+              <CircularProgress />
+              <Typography variant="body1" sx={{ textAlign: 'center' }}>Response is being generated...</Typography>
+            </Box>
+          )}
+          {responses[currentIndex] && !loading && (
+            <Box>
+              <Typography variant="h6" sx={{ marginBottom: '12px' }}>Prompt:</Typography>
+              <Typography variant="body1" sx={{ marginBottom: '24px' }}>{responses[currentIndex].prompt}</Typography>
+              <Typography variant="h6" sx={{ marginBottom: '12px' }}>Response:</Typography>
+              <ReactMarkdown>{responses[currentIndex].response}</ReactMarkdown>
+            </Box>
+          )}
+        </Box>
       </Box>
     </Box>
   );
