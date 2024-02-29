@@ -3,7 +3,7 @@ module.exports = {
       return [
         {
           source: '/:path*',
-          destination: 'http://localhost:5000/:path*', 
+          destination: 'https://genuiback.onrender.com/:path*', 
         },
       ]
     },
