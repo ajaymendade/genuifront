@@ -22,10 +22,10 @@ const SimilarPromptsBox = styled(Box)(({ theme }) => ({
 const SimilarPromptButton = styled(Button)({
   margin: '4px',
   borderRadius: '9999px',
-  backgroundColor: '#f0f0f0',
+  backgroundColor: 'white',
   color: '#333',
   '&:hover': {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: 'white',
   },
 });
 
@@ -95,7 +95,7 @@ export default function Home() {
           <Button variant="outlined" onClick={handleClear}>Clear</Button>
         </Box>
         <SimilarPromptsBox sx={{ mt: 2, flexGrow: 1 }}>
-          <Typography variant="h6" sx={{ marginBottom: '12px' }}>Similar Prompts</Typography>
+          <Typography variant="h6" sx={{ marginBottom: '12px' }}>Bubble</Typography>
           {similarPrompts.map((group, index) => (
             <Box key={index} sx={{ marginBottom: '12px' }}>
               {group.map((p, idx) => (
