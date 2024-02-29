@@ -8,21 +8,23 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 
 // Custom styled components for enhanced look
-const SimilarPromptsBox = styled(Box)({
+const SimilarPromptsBox = styled(Box)(({ theme }) => ({
   border: '1px solid #ccc',
   borderRadius: '4px',
   padding: '16px',
-  overflow: 'hidden',
+  overflow: 'auto',
   backgroundColor: '#f9f9f9',
-});
+  maxHeight: '40vh', // Dynamic height with a maximum value
+  minHeight: '100px', // Ensures that the box is not too small
+}));
 
 const SimilarPromptButton = styled(Button)({
   margin: '4px',
   borderRadius: '9999px',
-  backgroundColor: '#f0f0f0',
+  backgroundColor: 'white',
   color: '#333',
   '&:hover': {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: "white",
   },
 });
 
@@ -89,8 +91,8 @@ export default function Home() {
           <Button variant="contained" onClick={handleGenerate}>Generate</Button>
           <Button variant="outlined" onClick={handleClear}>Clear</Button>
         </Box>
-        <SimilarPromptsBox sx={{ mt: 2 }}>
-          <Typography variant="h6" sx={{ marginBottom: '12px' }}>Similar Prompts</Typography>
+        <SimilarPromptsBox sx={{ mt: 2, flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ marginBottom: '12px' }}>Bubbles</Typography>
           {similarPrompts.map((group, index) => (
             <Box key={index} sx={{ marginBottom: '12px' }}>
               {group.map((p, idx) => (
@@ -111,7 +113,7 @@ export default function Home() {
             <IconButton onClick={() => navigateResponses('next')}><ArrowForwardIosIcon /></IconButton>
           </Box>
         </Box>
-        <Box sx={{ overflowY: 'auto', maxHeight: 'calc(100vh - 150px)', height: '400px', border: '1px solid #ccc', borderRadius: '4px', padding: 2, mt: 1 }}>
+        <Box sx={{ overflowY: 'auto', maxHeight: 'calc(100vh - 150px)', minHeight: '300px', height: 'auto', border: '1px solid #ccc', borderRadius: '4px', padding: 2, mt: 1, flexGrow: 1 }}>
           {loading && (
             <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
               <CircularProgress />
